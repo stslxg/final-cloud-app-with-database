@@ -58,12 +58,16 @@
                     {% for choice in question.choice_set.all %}
                         {% if choice.is_correct %}
                             {% if choice.id in selected_ids%}
-                                <p> Correct answer: {{ choice.text }} </p>
+                                <p class="text-success"> Correct answer: {{ choice.text }} </p>
                             {% else %}
-                                <p> Not selected: {{ choice.text }} </p>
+                                <p class="text-warning"> Not selected: {{ choice.text }} </p>
                             {% endif %}
                         {% else %}
-                            <p> {{ choice.text }} </p>
+                            {% if choice.id in selected_ids %}
+                                <p class="text-danger"> Wrong asnwer: {{ choice.text }} </p>
+                            {% else %}
+                                <p> {{ choice.text }} </p>
+                            {% endif %}
                         {% endif %}
                     {% endfor %}
                 </div>
