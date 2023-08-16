@@ -148,12 +148,7 @@ def show_exam_result(request, course_id, submission_id):
     for choice in submission.choices.all():
         selected_ids.append(choice.id)
     for question in course.question_set.all():
-        correct = True
-        for choice in question.choice_set.all():
-            selected = choice.id in selected_ids
-            if choice.is_correct != selected:
-                correct = False
-        if correct:
+        if question.is_get_score(selected_ids):
             grade += int(question.grade)
     context = {'course': course, 'selected_ids': selected_ids, 'grade': grade}
     return render(request, 'onlinecourse/exam_result_bootstrap.html', context)
